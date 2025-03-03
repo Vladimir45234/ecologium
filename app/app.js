@@ -1,32 +1,54 @@
-const button_5 = document.querySelector(".but-1");
-const button_6 = document.querySelector(".but-2");
-const button_7 = document.querySelector(".button-3");
-const button_8 = document.querySelector(".button-4");
-const burger = document.querySelector(".burger");
-const menu = document.querySelector(".menu-list");
-const text_1 = document.querySelector(".p1");
-const text_2 = document.querySelector(".p2");
-const text_3 = document.querySelector(".p3");
-const text_4 = document.querySelector(".p4");
+const slide = document.querySelectorAll('.slide');
+let currentIndex = 0;
+const totalSlides = slide.length;
+const slides = document.querySelector('.slides');
+
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
-const slides = document.querySelector('.slides');
-const slide = document.querySelectorAll('.slide');
+
+const button_5 = document.getElementsByClassName("item-button")[0];
+const button_6 = document.getElementsByClassName("item-button")[1];
+const burger = document.querySelector(".burger");
+const menu1 = document.querySelector(".nav-links");
+const pos = document.getElementsByClassName("menu");
+const gerain = document.querySelector("#menus");
+
+const menu = document.getElementById("side-menu");
+
+const windowInnerWidth = document.documentElement.clientWidth;
+const scrollbarWidth = parseInt(window.innerWidth) - parseInt(document.documentElement.clientWidth);
+const bodyElementHTML = document.getElementsByTagName("body")[0];
+
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 
-let currentIndex = 0;
-const totalSlides = slide.length;
+const modalTrigger1 = document.getElementsByClassName("trigger")[0];
+const modalTrigger2 = document.getElementsByClassName("trigger")[1];
+
+const modalWindow1 = document.getElementsByClassName("modalWindow")[0];
+const modalWindow2 = document.getElementsByClassName("modalWindow")[1];
+
+const modalBackground1 = document.getElementsByClassName("modalBackground")[0];
+const modalBackground2 = document.getElementsByClassName("modalBackground")[1];
+
+const modalClose1 = document.getElementsByClassName("modalClose")[0];
+const modalClose2 = document.getElementsByClassName("modalClose")[1];
+
+const modalActive1 = document.getElementsByClassName("modalActive")[0];
+const modalActive2 = document.getElementsByClassName("modalActive")[1];
+
+function bodyMargin() {
+    bodyElementHTML.style.marginRight = "-" + scrollbarWidth + "px";
+}
 
 function updateSliderPosition() {
     slides.style.transform = `translateX(-${currentIndex * 100}%)`;
 }
-
 nextBtn.addEventListener('click', () => {
     if (currentIndex < totalSlides - 1) {
         currentIndex++;
     } else {
-        currentIndex = 0; // Возврат к первому слайду
+        currentIndex = 0;
     }
     updateSliderPosition();
 });
@@ -35,32 +57,96 @@ prevBtn.addEventListener('click', () => {
     if (currentIndex > 0) {
         currentIndex--;
     } else {
-        currentIndex = totalSlides - 1; // Переход на последний слайд
+        currentIndex = totalSlides - 1;
     }
     updateSliderPosition();
 });
 
-burger.addEventListener("click", () => {
-   menu.classList.toggle("visible");
+if (modalTrigger1){
+    
+    modalTrigger1.addEventListener("click", () => {
+    document.getElementById('side-menu').checked = false;
+    modalBackground1.style.display = "block";
+    modalWindow1.style.display = "block";
+    if (modalWindow2){
+        modalWindow2.style.display = "none";
+    }
+    else if (windowInnerWidth <= 768) {
+        bodyMargin();
+    }
+
+    modalActive1.style.left = "calc(50% - " + (175 - scrollbarWidth / 2) + "px)";
 });
+
+modalClose1.addEventListener("click", () => {
+    modalBackground1.style.display = "none";
+    modalBackground2.style.display = "none";
+    if (windowInnerWidth <= 768) {
+        bodyMargin();
+    }
+});
+
+
+modalBackground1.addEventListener("click", function (event) {
+    if (event.target === modalBackground1) {
+        modalBackground1.style.display = "none";
+        modalBackground2.style.display = "none";
+        if (windowInnerWidth <= 768) {
+            bodyMargin();
+        }
+    }
+});
+}
+
+if (modalTrigger2){
+    modalTrigger2.addEventListener("click", () => {
+    document.getElementById('side-menu').checked = false;
+    modalBackground2.style.display = "block";
+    modalWindow1.style.display = "none";
+    if (modalWindow2){
+        modalWindow2.style.display = "block";
+    }
+    if (windowInnerWidth <= 768) {
+        bodyMargin();
+    }
+
+    modalActive2.style.left = "calc(50% - " + (175 - scrollbarWidth / 2) + "px)";
+});
+modalClose2.addEventListener("click", () => {
+    modalBackground2.style.display = "none";
+    if (windowInnerWidth <= 768) {
+        bodyMargin();
+    }
+});
+modalBackground2.addEventListener("click", function (event) {
+    if (event.target === modalBackground2) {
+        modalBackground1.style.display = "none";
+        modalBackground2.style.display = "none";
+        if (windowInnerWidth <= 768) {
+            bodyMargin();
+        }
+    }
+});
+}
 
 button_5.addEventListener("click", () =>{
     button_5.classList.add("active-button");
     button_6.classList.remove("active-button");
-    button_7.classList.add("active-button");
-    button_8.classList.remove("active-button");
+    document.getElementById('side-menu').checked = false;
 });
 button_6.addEventListener("click", () =>{
     button_5.classList.remove("active-button");
     button_6.classList.add("active-button");
-    button_7.classList.remove("active-button");
-    button_8.classList.add("active-button");
+    document.getElementById('side-menu').checked = false;
 });
-button_7.addEventListener("click", () =>{
-    button_7.classList.add("active-button");
-    button_8.classList.remove("active-button");
+
+window.addEventListener('scroll', function (e) {
+ var el = document.querySelector('#biologia');
+  if(window.scrollY + window.outerHeight - 350 > el.offsetTop) {
+    button_5.classList.remove("active-button");  
+    button_6.classList.add("active-button");
+  } else{
+      button_5.classList.add("active-button");
+      button_6.classList.remove("active-button");  
+  }
 });
-button_8.addEventListener("click", () =>{
-    button_7.classList.remove("active-button");
-    button_8.classList.add("active-button");
-})
