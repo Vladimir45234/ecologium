@@ -1,5 +1,6 @@
-<?php 
-session_start();
+<?php session_start(); 
+$unique_id = $_SESSION['user']['unique_id'];
+$avatar = $_SESSION['user']['avatar'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,33 +8,26 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecologium</title>
+    <title>Ecosys</title>
     <link rel="stylesheet" href="css/style.css?v=<?= time()?>" type="text/css">
-
 </head>
 <body>
 <?php if($_SESSION['user']){ ?>
-    <header class="header">
-        <a href="#" class="logo">EC</a>
-        <input class="side-menu" type="checkbox" id="side-menu"/>
-        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
-        <nav class="nav">
-            <ul class="menu">
-                <li><a href="#glavnaya" class="item-button active-button">Главная</a></li>
-                <li><a href="#biologia" class="item-button">Биология</a></li>
-                <li><a class="item-button profile trigger">Профиль</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include_once "php/includes/header_profile.php"; ?>
     <div class="modalBackground">
         <div class="modalActive">
             <div class="modalClose">
-                <img src="/src/modalCross.svg" />
+                <img src="images/icons/svg/modalCross.svg" />
             </div>
+            
             <div class="modalWindow">
-                <form>
-                    <h2><?= $_SESSION['user']['full_name'] ?></h2>
+                <form action="php/upload.php" method="post" enctype="multipart/form-data">
+                    <img src=<?= "images/users/$unique_id/$avatar" ?> class="avatar">
+                    <input type="file" name="avatar">
+                    <button type="submit">Submit</button>
+                    <h2><?= $_SESSION['user']['fname']." ".$_SESSION['user']['lname'] ?></h2>
                     <a href="#"><?= $_SESSION['user']['email'] ?></a><br>
+                    
                     <a href="/php/logout.php" class="logout">Выйти</a>
                 </form>
             </div>
@@ -41,7 +35,7 @@ session_start();
     </div>
     <section class="glavnaya" id="glavnaya">
     <div class="content">
-        <h1>Ecologium</h1>
+        <h1>Ecosys</h1>
         <p>Экология будущего</p>
     </div>
     </section>
@@ -60,48 +54,36 @@ session_start();
     </div>
     </section>
 <?php } else{ ?> 
-    <header class="header">
-        <a href="#" class="logo">EC</a>
-        <input class="side-menu" type="checkbox" id="side-menu"/>
-        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
-        <nav class="nav">
-            <ul class="menu">
-                <li><a href="#" class="item-button active-button">Главная</a></li>
-                <li><a href="#biologia" class="item-button">Биология</a></li>
-                <li><a class="item-button join trigger">Войти</a></li>
-                <li><a class="item-button register trigger">Регистрация</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include_once "php/includes/header_login.php"; ?>
     <main>
         <div class="modalBackground">
             <div class="modalActive">
                 <div class="modalClose">
-                    <img src="/src/modalCross.svg" />
+                    <img src="images/icons/svg/modalCross.svg" />
                 </div>
                 <div class="modalWindow">
                     <form action="/php/signin.php" method="post">
-                        <label>Логин</label><br>
-                        <input type="text" name="login"><br>
+                        <label>Почта</label><br>
+                        <input type="text" name="email"><br>
                         <label>Пароль</label><br>
                         <input type="password" name="password"><br>
                         <button type="submit">Войти</button>
                     </form>
+                    <a class="trigger">Регистрация</a>
                 </div>
             </div>
         </div>
-        
         <div class="modalBackground">
             <div class="modalActive">
                 <div class="modalClose">
-                    <img src="/src/modalCross.svg" />
+                    <img src="images/icons/svg/modalCross.svg" />
                 </div>
                 <div class="modalWindow">
                     <form action="/php/signup.php" method="post">
-                        <label for="">ФИО</label><br>
-                        <input type="text" name="full_name"><br>
-                        <label for="">Логин</label><br>
-                        <input type="text" name="login"><br>
+                        <label for="">Фамилия</label><br>
+                        <input type="text" name="fname"><br>
+                        <label for="">Имя</label><br>
+                        <input type="text" name="lname"><br>
                         <label for="">Почта</label><br>
                         <input type="email" name="email"><br>
                         <label for="">Пароль</label><br>
@@ -110,12 +92,13 @@ session_start();
                         <input type="password" name="password_confirm"><br>
                         <button type="submit">Регистрация</button>
                     </form>
+                    
                 </div>
             </div>
         </div>
     <section class="glavnaya">
     <div class="content">
-        <h1>Ecologium</h1>
+        <h1>Ecosys</h1>
         <p>Экология будущего</p>
     </div>
     </section>
@@ -135,6 +118,6 @@ session_start();
     </section>
     </main>
 <?php } ?>
-    <script type="text/javascript" src="app/app.js?v=<?= time()?>"></script>
+    <script type="text/javascript" src="javascript/app.js?v=<?= time()?>"></script>
 </body>
 </html>
