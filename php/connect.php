@@ -1,11 +1,9 @@
 <?php
-  $hostname = "localhost";
-  $username = "flexinyp_ecolog";
-  $password = "minodo95!";
-  $dbname = "flexinyp_ecolog";
+
+  require_once "config.php";
+
+  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   
-  $conn = mysqli_connect($hostname, $username, $password, $dbname);
   if(!$conn){
-    echo "Ошибка подключения к базе данных".mysqli_connect_error();
+    die("DB ERROR CONNECT ".mysqli_connect_error());
   }
-?>

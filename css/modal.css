@@ -1,0 +1,76 @@
+.avatar{
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+}
+.modalActive1, .modalActive2, .modalActive3 {
+    position: fixed;
+    width: 350px;
+    display: none;
+    background-color: #7aae27;
+    height: 495px;
+    top: 20%;
+    right: 0;
+    left: 40%;
+    z-index: 2;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    cursor: default;
+    padding: 40px 20px;
+}
+
+.modalWindow1, .modalWindow2, .modalWindow3 {
+    z-index: 3;
+}
+.modalClose1, .modalClose2, .modalClose3 {
+    font-family: var(--font-regular);
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.modalClose1 img, .modalClose2 img, .modalClose3 img {
+    margin: 3px;
+    width: 24px;
+    height: 24px;
+}
+
+.modalWindow1 h2, .modalWindow2 h2, .modalWindow3 h2{
+    color: black;
+}
+
+.modalWindow1 label, .modalWindow2 label, .modalWindow3 label{
+    color: black;
+}
+
+.modalBackground1, .modalBackground2, .modalBackground3 {
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 1;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 768px){
+    .modalActive1, .modalActive2, .modalActive3 {
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    cursor: default;
+    padding: 25% 20px;
+}
+}
